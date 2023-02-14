@@ -26,7 +26,6 @@ app.post('/chat', async (req: Request, res: Response) => {
     const response = await bot.ask(body.msg, body.conversationId);
     return res.status(200).json({ success: true, message: response });
   } catch (err) {
-    console.log(err);
     return res.status(500).json({ success: false, message: (err as Error).message });
   }
 });
