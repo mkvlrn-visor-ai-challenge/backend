@@ -4,14 +4,14 @@ import { config } from 'dotenv';
 import express, { Request, Response } from 'express';
 
 // load env variables
-const { parsed } = config();
+config();
 
 const app = express();
 app.use(express.json({}));
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: [parsed!.ALLOWED_CLIENT] }));
+app.use(cors({ origin: [process.env.ALLOWED_CLIENT!] }));
 
-const bot = new ChatGPT(parsed!.OPENAI_KEY, {
+const bot = new ChatGPT(process.env.OPENAI_KEY!, {
   model: 'text-davinci-003',
   max_tokens: 512,
   temperature: 1,
@@ -30,5 +30,5 @@ app.post('/chat', async (req: Request, res: Response) => {
   }
 });
 
-const port = process.env.PORT || parsed!.APP_PORT;
+const port = process.env.PORT || process.env.APP_PORT;
 app.listen(port, () => console.log(`bot up @${port}`));
