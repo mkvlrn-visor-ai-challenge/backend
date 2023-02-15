@@ -29,6 +29,9 @@ app.post('/chat', async (req: Request, res: Response) => {
     return res.status(500).json({ success: false, message: (err as Error).message });
   }
 });
+app.get('/', async (_req: Request, res: Response) => {
+  res.redirect('https://mkvlrn-visor-ai-challenge.netlify.app');
+});
 
 const port = process.env.PORT || process.env.APP_PORT;
 app.listen(port, () => console.log(`bot up @${port}`));
